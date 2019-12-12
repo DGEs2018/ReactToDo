@@ -21,10 +21,21 @@ export default class App extends Component {
 		// this.formSubmitted = this.formSubmitted.bind(this);  (when an instance is created, this would totally be bound)
 		// another possibility is to bind the above, and leave just the 'this.formSubmitted' below
 	}
+
+	newToDoUpdated(event) {
+		// console.log(event.target.value);
+		this.setState({
+			newToDo: event.target.value
+		});
+	}
+
 	formSubmitted(event) {
 		event.preventDefault();
+
+		console.log(this.state.newToDo);
+
 		this.setState({
-			newToDo: '',
+			// newToDo: '',
 			todos: [
 				...this.state.todos,
 				// but we want to make a copy of it, and not directly change it, hence the spread operator
@@ -45,20 +56,21 @@ export default class App extends Component {
 		// })
 		// console.log(this.state.newTodo); // this only logs whatsoever is desired to the console window
 	}
-	newToDoUpdated(event) {
-		// console.log(event.target.value);
-		this.setState({
-			newTodo: event.target.value
-		});
-	}
+
 	render() {
+		// console.log(this.state);
 		return (
 			<div>
 				<h3>{this.state.message}</h3>
 				<form onSubmit={(event) => this.formSubmitted(event)}>
 					{/*2nd alternative, this.formSubmitted.bind(this)*/}
-					<label htmlFor="toDo">React: to-do example</label>
-					<input onChange={(event) => this.newToDoUpdated(event)} id="toDo" name="toDo" />
+					<label htmlFor="newToDo">React: to-do example</label>
+					<input
+						onChange={(event) => this.newToDoUpdated(event)}
+						id="newToDo"
+						name="newToDo"
+						value={this.state.newTodo}
+					/>
 					<button type="submit">Add more</button>
 				</form>
 				<ul>
